@@ -1,133 +1,503 @@
-<!DOCTYPE html>
-<html lang="ja">
-  <head>
-    <meta charset="utf-8">
-    <title>CGLAB1</title>
-    <meta name="description" content="テキストテキストテキストテキストテキストテキストテキストテキスト">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="img/favicon.ico">
-    <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="js/jquery.inview.min.js"></script>
-    <script src="js/main.js"></script>
-  </head>
+@charset "UTF-8";
 
-  <body>
-    <header id="header">
-      <div class="logo">
-        <a href="#">CG LAB 1</a>
-      </div>
+html {
+  font-size: 100%;
+}
+body {
+  color: #050507;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 300;
+}
+a {
+  color: rgb(0, 0, 0);
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+video {
+  max-width: 100%;
+  vertical-align: bottom;
+}
+li {
+  list-style: none;
+}
 
-      <nav id="navi">
-        <ul class="menu">
-          <li><a href="#">TOP</a></li>
-          <li><a href="#information">INFORMATION</a></li>
-          <li><a href="#gallery">GALLERY</a></li>
-          <li><a href="#access">ACCESS</a></li>
-          <li><a href="#contact">CONTACT</a></li>
-        </ul>
-      </nav>
+/* h1タグ用 */
+.site-title {
+  font-size: 3.25rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  margin: 100px 0;
+  color: rgb(139, 129, 166);
+}
+/* h2タグ用 */
+.section-title {
+  border-bottom: solid 1px rgb(255, 255, 255);
+  /* 下線をテキストと同じ幅にあわせるために設定 */
+  display: inline-block;
+  font-size: 3.75rem;
+  font-weight: 300;
+  letter-spacing: 0.03em;
+  margin-bottom: 45px;
+}
+/* コンテンツ幅を設定するための共通クラス */
+.wrapper {
+  max-width: 800px;
+  padding: 0 30px;
+  margin: 0 auto;
+}
+/* MainとFooter全体を囲むクラス */
+.container {
+  background: #ffcdcd;
+  color: rgb(80, 80, 80);
+  text-align: center;
+}
 
-      <div class="hamburger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-    </header>
+/*
+サイドボタン
+初期状態は「translateY(60px);」で画面の右側に隠しておく
+Galleryのタイトルが画面下にきたタイミングで、jQueryでCSSを変更してボタンをスライドしながら表示する
+Accessのタイトルが画面下にきたタイミングで、jQueryでCSSを変更してボタンをスライドしながら非表示にする
+※main.jsの「サイドボタンを表示」を参照
+*/
+#side-btn {
+  border: solid 1px #fff;
+  position: fixed;
+  right: -144px;
+  bottom: 200px;
+  transform: rotate(-90deg) translateY(60px);
+  transition: 0.6s;
+  z-index: 30;
+}
+#side-btn a {
+  width: 165px;
+  font-size: 0.875rem;
+  display: inline-block;
+  letter-spacing: 0.1em;
+  padding: 15px 0;
+  transition: 0.3s;
+}
+#side-btn a:last-of-type {
+  border-left: solid 1px #fff;
+}
+#side-btn a:hover {
+  opacity: 0.7;
+}
 
-    <div class="container">
-      <main>
-        <!-- メインビジュアル -->
-        <div id="mainvisual">
-          <img src="img/mainvisual1.png" alt="">
-          <img src="img/mainvisual2.png" alt="">
-          <img src="img/mainvisual3.png" alt="">
-        </div>
+/*
+Accessの背景画像
+初期状態は「display: none;」で非表示にしておく
+Accessのタイトルが画面下にきたタイミングで、jQueryのfadeInで表示する
+Contactのタイトルが画面下にきたタイミングで、jQueryのfadeOutで非表示にする
+「position: fixed;」で固定し「width: 100vw;」「height: 100vh;」で全画面表示する
+※main.jsの「Accessの背景画像を表示」を参照
+*/
+.bg {
+  background: url("../img/bg.jpg") center center repeat !important;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 10;
+}
 
-        <!-- サイトタイトル -->
-        <h1 class="site-title inview fadein">Visualized world, New discoveries<br>CG LAB 1 EVENT</h1>
+/*
+フェード表示
+InformationとGalleryの画像を下からふわっと表示させるためのクラス
+「transform: translate(0, 50%);」で下にさげた状態で、
+「opacity: 0;」で非表示にしておく
+*/
+.fadein {
+  opacity: 0;
+  transform: translate(0, 50%);
+  transition: 2s;
+}
+/*
+fadeinクラスの要素が画面下にきたタイミングで、jQueryのinviewにてshowクラスを追加して
+「transform: translate(0, 0);」と「opacity: 1;」で表示させる
+※main.jsの「フェード表示」を参照
+*/
+.fadein.show {
+  transform: translate(0, 0);
+  opacity: 1;
+}
 
-        <!-- Information -->
-        <section id="information" class="inview fadein">
-          <h2 class="section-title">INFORMATION</h2>
-          <p>
-            <span class="info-date-en">2021 JUL 1(THU)-3(SAT)</span>
-            <span class="info-time-en">DAY1 10am-6pm OTHER 10am-5:30pm</span>
-          </p>
-          <p class="info-place">H棟 CG第1研究室</p>
-          <p class="info-date-ja">
-            2021年7月1日(木)ー3日(土)<br>
-            Day1 10時〜18時　その他 10時〜17時30分
-          </p>
-        </section>
+/*-------------------------------------------
+ヘッダー
+-------------------------------------------*/
+/*
+ヘッダーロゴ
+初期状態は「display: none;」で非表示にしておく
+所定のスクロール位置にきたらjQueryのfadeInで表示する
+※main.jsの「ロゴ、ハンバーガーメニューの表示」を参照
+*/
+.logo {
+  font-size: 2.10rem;
+  font-weight: 300;
 
-        <!-- サイドボタン -->
-        <div id="side-btn">
-          <a href="#">FOR VISITOR</a>
-          <a href="#">FOR EXHIBITOR</a>
-        </div>
+  line-height: 3px;
+  position: fixed;
+  top: 35px;
+  left: 30px;
+  /* 一番上にくるように設定 */
+  z-index: 40;
+  display: none;
+}
+.logo a {
+  display: block;
+  color: rgb(255, 255, 255);
+}
 
-        <!-- Gallery -->
-        <section id="gallery" class="wrapper">
-          <h2 class="section-title inview fadein">RESEARCH GALLERY</h2>
-          <ul class="list">
-            <li class="inview fadein"><img src="img/flower1.png" alt=""></li>
-            <li class="inview fadein"><img src="img/flower2.png" alt=""></li>
-            <li class="inview fadein"><img src="img/flower3.png" alt=""></li>
-            <li class="inview fadein"><video src="video/video.mov" loop autoplay muted playsinline></li>
-            <li class="inview fadein"><img src="img/flower3.png" alt=""></li>
-            <li class="inview fadein"><img src="img/flower3.png" alt=""></li>
-          </ul>
-        </section>
+/*
+ハンバーガ―メニュー
+初期状態は「display: none;」で非表示にしておく
+所定のスクロール位置にきたらjQueryのfadeInで表示する
+※main.jsの「ロゴ、ハンバーガーメニューの表示」を参照
+*/
+.hamburger {
+  width: 42px;
+  height: 42px;
+  cursor: pointer;
+  position: fixed;
+  top: 20px;
+  right: 25px;
+  /* 一番上にくるように設定 */
+  z-index: 40;
+  display: none;
+}
+.hamburger span {
+  width: 30px;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+  position: absolute;
+  left: 3px;
+  transition: 0.5s ease-in-out;
+}
+.hamburger span:nth-child(1) {
+  top: 1px;
+}
+.hamburger span:nth-child(2) {
+  top: 11px;
+}
+.hamburger span:nth-child(3) {
+  top: 21px;
+}
+.hamburger.active span:nth-child(1) {
+  top: 21px;
+  left: 6px;
+  transform: rotate(-45deg);
+}
+.hamburger.active span:nth-child(2),
+.hamburger.active span:nth-child(3) {
+  top: 21px;
+  transform: rotate(45deg);
+}
+#navi {
+  width: 100%;
+  background-color: #fff;
+  color: #050507;
+  position: fixed;
+  top: 0;
+  left: 0;
+  text-align: center;
+  transform: translateY(-100%);
+  transition: 0.6s;
+  /* ロゴ、ハンバーガーより下でAccessページの背景画像よりも上にくるよう設定 */
+  z-index: 30;
+}
+#navi ul {
+  width: 100%;
+  background-color: #050507;
+  padding: 80px 0 30px 0;
+}
+#navi ul li {
+  padding: 10px 0;
+}
+#navi ul li a {
+  display: block;
+}
+/*
+メニュー表示
+ハンバーガーメニューがクリックされた際に、jQueryで#naviにactiveクラスを追加して、
+メニューを上から下にスライドさせて表示する
+*/
+#navi.active {
+  transform: translateY(0%);
+}
 
-        <!-- Access -->
-        <section id="access">
-          <h2 class="section-title">ACCESS</h2>
-          <p class="place">OIC H棟 CG第1研究室</p>
-          <p class="address">
-            〒567-8570 大阪府茨木市岩倉町2-150 立命館大学 情報理工学部 CG第1研究室<br>
-            Ritsumeikan University, 2-150 Iwakura, Ibaraki-shi, Osaka
-          </p>
-          <p class="contact">
-            Tel: 03-1111-1111<br>
-            E-mail: info@xxxxxxx.jp
-          </p>
-          <a class="btn" href="#" target="_blank">MAP</a>
-        </section>
+/*-------------------------------------------
+Mainvisual
+-------------------------------------------*/
+#mainvisual {
+  display: flex;
+  justify-content: center;
+  /* スクロールで画像を拡大させた際に、横スクロールが出ないよう設定 */
+  overflow-x: hidden;
+}
+/*
+スクロールしたタイミングでjQueryにて画像を拡大するが、
+その際に画像が縮まないよう「flex-shrink: 0;」を設定する
+*/
+#mainvisual img {
+  width: calc(100%/3);
+  height: 100vh;
+  flex-shrink: 0;
+  object-fit: cover;
+}
 
-        <!-- Contact -->
-        <section id="contact" class="wrapper">
-          <h2 class="section-title">CONTACT</h2>
-          <a class="btn" href="#">研究室に関するお問い合わせ</a>
-          <a class="btn" href="#">その他のお問い合わせ</a>
-        </section>
+/*-------------------------------------------
+Information
+-------------------------------------------*/
+#information {
+  margin-bottom: 140px;
+  color: rgb(255, 255, 255);
+}
+#information .info-date-en {
+  display: block;
+  font-size: 1.5rem;
+  color: rgb(254, 255, 255);
+}
+#information .info-time-en {
+  display: block;
+  font-size: 1.125rem;
+  color: rgb(255, 255, 255);
+}
+#information .info-place {
+  font-size: 2.5rem;
+  font-weight: 400;
+  margin: 20px 0;
+  color: rgb(255, 255, 255);
+}
+#information .info-date-ja {
+  font-size: 1.125rem;
+  color: rgb(255, 255, 255);
+}
 
-        <!-- Accessの背景画像 -->
-        <div class="bg"></div>
-      </main>
+/*-------------------------------------------
+Gallery
+-------------------------------------------*/
+#gallery {
+  margin-bottom: 480px;
+  color: rgb(0, 0, 0);
+}
+#gallery .list li {
+  margin-bottom: 60px;
+}
+#gallery .list li img {
+  width: 48%;
+}
+/* 奇数のliタグは左寄せ */
+#gallery .list li:nth-child(odd) {
+  text-align: left;
+}
+/* 偶数のliタグは右寄せ */
+#gallery .list li:nth-child(even) {
+  text-align: right;
+}
 
-      <footer id="footer">
-        <div>
-          <p>CG LAB 1</p>
-          <p>〒567-8570 大阪府茨木市岩倉町2-150 立命館大学 情報理工学部 CG第1研究室</p>
-          <p class="contact">
-            Tel: 03-1111-1111<br>
-            E-mail: info@xxxxxxx.jp
-          </p>
-          <ul class="sns">
-            <li><a href="#" target="_blank">Twitter</a></li>
-            <li><a href="#" target="_blank">Instagram</a></li>
-          </ul>
-        </div>
-        <ul class="copyright">
-          <li><a href="#">PRIVACY POLICY</a></li>
-          <li>&copy; CG LAB 1</li>
-        </ul>
-      </footer>
-    </div>
-  </body>
-</html>
+/*-------------------------------------------
+Access
+-------------------------------------------*/
+/*
+「z-index: 20;」でコンテンツが背景画像の上にくるようにする
+※デフォルトのposition（static）では、z-indexを指定できないため。
+「position: relative;」設定する
+*/
+#access {
+  margin-bottom: 480px;
+  position: relative;
+  z-index: 20;
+  color: #fff;
+}
+#access .place {
+  font-size: 1.75rem;
+  font-weight: 400;
+  margin-bottom: 20px;
+  color: #fff;
+}
+#access .address {
+  margin-bottom: 20px;
+  color: #fff;
+}
+#access .contact {
+  margin-bottom: 30px;
+  color: #fff;
+}
+#access .btn {
+  border: solid 1px rgb(255, 255, 255);
+  color: #fff;
+  display: inline-block;
+  padding: 15px 82px;
+  transition: 0.3s;
+}
+#access .btn:hover {
+  background-color: #050507;
+}
+
+/*-------------------------------------------
+Contact
+-------------------------------------------*/
+/*
+「z-index: 20;」でコンテンツが背景画像の上にくるようにする
+*/
+#contact {
+  margin-bottom: 200px;
+  position: relative;
+  z-index: 20;
+  color: rgb(255, 255, 255);
+}
+#contact .btn {
+  width: 400px;
+  border: solid 1px #ffffff;
+  color: rgb(0, 0, 0);
+  display: block;
+  padding: 30px 0;
+  margin: 0 auto 20px auto;
+  position: relative;
+  transition: 0.3s;
+}
+/*
+ボタン矢印
+*/
+#contact .btn::before,
+#contact .btn::after {
+  content: "";
+  position: absolute;
+  right: -40px;
+  height: 1px;
+  background-color: rgb(255, 255, 255);
+  transition: 0.3s;
+}
+/*
+矢印の直線部分
+*/
+#contact .btn::before {
+  width: 120px;
+  top: 48px;
+}
+/*
+矢印の先端部分
+「rotate(25deg)」で角度をつける
+*/
+#contact .btn::after {
+  width: 15px;
+  top: 45px;
+  transform: rotate(25deg);
+}
+#contact .btn:hover {
+  opacity: 0.7;
+}
+#contact .btn:hover::before,
+#contact .btn:hover::after {
+  right: -50px;
+}
+
+/*-------------------------------------------
+Footer
+-------------------------------------------*/
+#footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-top: solid 1px rgb(255, 255, 255);
+  font-size: 0.75rem;
+  padding: 80px 30px;
+  text-align: left;
+}
+#footer p {
+  line-height: 1.6;
+}
+#footer .sns {
+  display: flex;
+  align-items: center;
+  color: rgb(0, 0, 0);
+  margin-top: 30px;
+}
+#footer .sns li {
+  margin-right: 15px;
+}
+#footer .copyright {
+  display: flex;
+  align-items: center;
+}
+#footer .copyright li:last-child {
+  margin-left: 30px;
+}
+
+/*-------------------------------------------
+SP
+-------------------------------------------*/
+@media screen and (max-width: 900px) {
+  .site-title {
+    font-size: 3.5rem;
+    margin: 50px 0;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+
+  /*-------------------------------------------
+  Information
+  -------------------------------------------*/
+  #information {
+    margin-bottom: 80px;
+  }
+  #information .info-date-en,
+  #information .info-time-en,
+  #information .info-date-ja {
+    font-size: 1rem;
+  }
+  #information .info-place {
+    font-size: 2rem;
+  }
+
+  /*-------------------------------------------
+  Gallery
+  -------------------------------------------*/
+  #gallery {
+    margin-bottom: 280px;
+  }
+  #gallery .list li {
+    margin-bottom: 30px;
+  }
+  #gallery .list li img {
+    width: 100%;
+  }
+
+  /*-------------------------------------------
+  Access
+  -------------------------------------------*/
+  #access {
+    margin-bottom: 280px;
+  }
+
+  /*-------------------------------------------
+  Contact
+  -------------------------------------------*/
+  #contact .btn {
+    width: 100%;
+  }
+  /*
+  スマホの時は矢印を消す
+  */
+  #contact .btn::before,
+  #contact .btn::after {
+    content: none;
+  }
+
+  /*-------------------------------------------
+  Footer
+  -------------------------------------------*/
+  #footer {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 60px 30px;
+  }
+  #footer .sns {
+    margin-bottom: 30px;
+  }
+}
