@@ -2,10 +2,10 @@
 <html lang="ja">
   <head>
     <meta charset="utf-8">
-    <title>CGLAB1</title>
+    <title>CG LAB 1</title>
     <meta name="description" content="テキストテキストテキストテキストテキストテキストテキストテキスト">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" href="img/favicon.ico">
+    <link rel="icon" href="img/design.ico">
     <link rel="stylesheet" href="https://unpkg.com/ress/dist/ress.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,7 +26,7 @@
         <ul class="menu">
           <li><a href="#">TOP</a></li>
           <li><a href="#information">INFORMATION</a></li>
-          <li><a href="#gallery">GALLERY</a></li>
+          <li><a href="#gallery">RESEARCH GALLERY</a></li>
           <li><a href="#access">ACCESS</a></li>
           <li><a href="#contact">CONTACT</a></li>
         </ul>
@@ -43,32 +43,38 @@
       <main>
         <!-- メインビジュアル -->
         <div id="mainvisual">
+          <div class="overlay-text">
+          <h1>Welcome to
+          </br>CG LAB 1</h1>
+        </div>
           <img src="img/mainvisual1.png" alt="">
           <img src="img/mainvisual2.png" alt="">
           <img src="img/mainvisual3.png" alt="">
         </div>
 
         <!-- サイトタイトル -->
-        <h1 class="site-title inview fadein">Visualized world, New discoveries<br>CG LAB 1 EVENT</h1>
+        <h1 class="site-title inview fadein">Visualized World, New Discoveries<br>CG LAB 1 EVENT</h1>
 
         <!-- Information -->
         <section id="information" class="inview fadein">
           <h2 class="section-title">INFORMATION</h2>
           <p>
-            <span class="info-date-en">2021 JUL 1(THU)-3(SAT)</span>
-            <span class="info-time-en">DAY1 10am-6pm OTHER 10am-5:30pm</span>
+            <span class="info-date-en">2024 JUN 4(TUE), 6(THU), 11(TUE)</span>
+            <span class="info-time-en">ALL DAYS 12:10-13:00</span>
           </p>
-          <p class="info-place">H棟 CG第1研究室</p>
+          <p class="info-place">大阪・茨木キャンパス(OIC) H棟 6階<br>
+            コンピュータグラフィックス第１研究室 (H630)</p>
           <p class="info-date-ja">
-            2024年6月4日(火)，6日(水)<br>
-            Day1 10時〜18時　その他 10時〜17時30分
+            2024年6月4日(火)，6日(木)，11日(火)<br>
+            ALL DAYS 12時10分〜13時
+            <br>
           </p>
         </section>
 
         <!-- サイドボタン -->
         <div id="side-btn">
-          <a href="#">FOR VISITOR</a>
-          <a href="#">FOR EXHIBITOR</a>
+          <a href="#access">FOR VISITOR</a>
+          <a href="#information">INFORMATION</a>
         </div>
 
         <!-- Gallery -->
@@ -77,50 +83,49 @@
           <ul class="list">
             <li class="inview fadein"><img src="img/flower1.png" alt=""></li>
             <li class="inview fadein"><img src="img/flower2.png" alt=""></li>
-            <li class="inview fadein"><img src="img/flower3.png" alt=""></li>
-            <li class="inview fadein"><img src="img/flower3.png" alt=""></li>
-            <li class="inview fadein"><img src="img/flower3.png" alt=""></li>
-            <li class="inview fadein"><img src="img/flower3.png" alt=""></li>
+            <li class="inview fadein"><img src="img/mainvisual2.png" alt=""></li>
+            <li class="inview fadein"><img src="img/mainvisual1.png" alt=""></li>
+            <li class="inview fadein"><video src="video/video.mov" loop autoplay muted playsinline></li>
+            <li class="inview fadein"><video src="video/temple.mov" loop autoplay muted playsinline></li>
           </ul>
         </section>
 
         <!-- Access -->
         <section id="access">
           <h2 class="section-title">ACCESS</h2>
-          <p class="place">OIC H棟 CG第1研究室</p>
-          <p class="address">
-            〒567-8570 大阪府茨木市岩倉町2-150 立命館大学 情報理工学部 CG第1研究室<br>
-            Ritsumeikan University, 2-150 Iwakura, Ibaraki-shi, Osaka
-          </p>
-          </p>
-          <a class="btn" href="#" target="_blank">MAP</a>
+          <p class="place">大阪・茨木キャンパス(OIC) H棟 6階
+            <br>コンピュータグラフィックス第１研究室 (H630)</p>
+          <a class="btn" href="https://www.ritsumei.ac.jp/accessmap/oic/" target="_blank">MAP</a>
         </section>
 
         <!-- Contact -->
         <section id="contact" class="wrapper">
           <h2 class="section-title">CONTACT</h2>
-          <a class="btn" href="#">研究室に関するお問い合わせ</a>
-          <a class="btn" href="#">その他のお問い合わせ</a>
+          <a class="btn" href="https://peing.net/ja/cglab_rits">研究室への質問(質問箱:匿名)</a>
+          <a class="btn" href="http://www.cg.is.ritsumei.ac.jp/">研究室のホームページ</a>
         </section>
 
         <!-- Accessの背景画像 -->
-        <div class="video"></div>
+        <div class="bg"></div>
       </main>
 
       <footer id="footer">
         <div>
           <p>CG LAB 1</p>
-          <p>〒567-8570 大阪府茨木市岩倉町2-150 立命館大学 情報理工学部 CG第1研究室</p>
-          <p class="contact">
+          <p>〒567-8570 大阪府茨木市岩倉町2-150
             <br>
+            立命館大学 情報理工学部 <br>
+            コンピュータグラフィックス第１研究室 (H630)
+            <br></p>
+          <p class="contact">
+            
           </p>
           <ul class="sns">
-            <li><a href="#" target="_blank">Twitter</a></li>
+            <li><a href="https://x.com/cglab_rits?s=21&t=rE5pYy5SVRITEBUEMswPbQ" target="_blank">X (Twitter)</a></li>
             <li><a href="#" target="_blank">Instagram</a></li>
           </ul>
         </div>
         <ul class="copyright">
-          <li><a href="#">PRIVACY POLICY</a></li>
           <li>&copy; CG LAB 1</li>
         </ul>
       </footer>
