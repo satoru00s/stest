@@ -4,12 +4,12 @@ html {
   font-size: 100%;
 }
 body {
-  color: #050507;
+  color: #ffffff;
   font-family: 'Source Sans Pro', sans-serif;
   font-weight: 300;
 }
 a {
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   text-decoration: none;
 }
 img {
@@ -30,7 +30,7 @@ li {
   font-weight: 300;
   letter-spacing: 0.03em;
   margin: 100px 0;
-  color: rgb(139, 129, 166);
+  color: rgb(255, 255, 255);
 }
 /* h2タグ用 */
 .section-title {
@@ -50,8 +50,8 @@ li {
 }
 /* MainとFooter全体を囲むクラス */
 .container {
-  background: #ffcdcd;
-  color: rgb(80, 80, 80);
+  background: #000000;
+  color: rgb(255, 255, 255);
   text-align: center;
 }
 
@@ -95,7 +95,7 @@ Contactのタイトルが画面下にきたタイミングで、jQueryのfadeOut
 ※main.jsの「Accessの背景画像を表示」を参照
 */
 .bg {
-  background: url("../video/video.mov") center center repeat !important;
+  background: url("../img/bpp.png") center center repeat !important;
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -188,7 +188,7 @@ fadeinクラスの要素が画面下にきたタイミングで、jQueryのinvie
 }
 .hamburger.active span:nth-child(1) {
   top: 21px;
-  left: 6px;
+  left: 3px;
   transform: rotate(-45deg);
 }
 .hamburger.active span:nth-child(2),
@@ -198,8 +198,8 @@ fadeinクラスの要素が画面下にきたタイミングで、jQueryのinvie
 }
 #navi {
   width: 100%;
-  background-color: #fff;
-  color: #050507;
+  background-color: #ffffff;
+  color: #ffffff;
   position: fixed;
   top: 0;
   left: 0;
@@ -211,7 +211,7 @@ fadeinクラスの要素が画面下にきたタイミングで、jQueryのinvie
 }
 #navi ul {
   width: 100%;
-  background-color: #050507;
+  background-color: #000000;
   padding: 80px 0 30px 0;
 }
 #navi ul li {
@@ -238,12 +238,43 @@ Mainvisual
   /* スクロールで画像を拡大させた際に、横スクロールが出ないよう設定 */
   overflow-x: hidden;
 }
-/*
-スクロールしたタイミングでjQueryにて画像を拡大するが、
-その際に画像が縮まないよう「flex-shrink: 0;」を設定する
-*/
+
+#mainvisual .overlay-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  z-index: 1;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+#mainvisual .overlay-text h1 {
+  font-size: 7rem;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+#mainvisual .overlay-text p {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+/* 背景の暗いオーバーレイを追加 */
+#mainvisual::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 背景を暗くするオーバーレイ */
+  z-index: 0;
+}
+
 #mainvisual img {
-  width: calc(100%/3);
+  width: calc(100% / 3);
   height: 100vh;
   flex-shrink: 0;
   object-fit: cover;
@@ -282,18 +313,25 @@ Gallery
 -------------------------------------------*/
 #gallery {
   margin-bottom: 480px;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
 }
+#gallery .list li img,
+#gallery .list li video {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
+  display: block;
+}
+
 #gallery .list li {
   margin-bottom: 60px;
 }
-#gallery .list li img {
-  width: 48%;
-}
+
 /* 奇数のliタグは左寄せ */
 #gallery .list li:nth-child(odd) {
   text-align: left;
 }
+
 /* 偶数のliタグは右寄せ */
 #gallery .list li:nth-child(even) {
   text-align: right;
@@ -335,7 +373,7 @@ Access
   transition: 0.3s;
 }
 #access .btn:hover {
-  background-color: #050507;
+  background-color: #ffffff;
 }
 
 /*-------------------------------------------
@@ -353,7 +391,7 @@ Contact
 #contact .btn {
   width: 400px;
   border: solid 1px #ffffff;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   display: block;
   padding: 30px 0;
   margin: 0 auto 20px auto;
@@ -414,7 +452,7 @@ Footer
 #footer .sns {
   display: flex;
   align-items: center;
-  color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
   margin-top: 30px;
 }
 #footer .sns li {
@@ -465,6 +503,9 @@ SP
     margin-bottom: 30px;
   }
   #gallery .list li img {
+    width: 100%;
+  }
+  #gallery .list li video {
     width: 100%;
   }
 
